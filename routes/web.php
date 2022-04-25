@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\management\FeeCategoryController;
 use App\Http\Controllers\backend\management\StudentClassController;
 use App\Http\Controllers\backend\management\StudentGroupController;
 use App\Http\Controllers\backend\management\StudentYearController;
@@ -51,6 +52,10 @@ Route::prefix('management')->group(function (){
     Route::get('group/view',[StudentGroupController::class,'index'])->name('group.index');
     Route::get('group/add',[StudentGroupController::class,'add'])->name('group.add');
     Route::post('group/add',[StudentGroupController::class,'store'])->name('group.store');
+    // fee category
+    Route::get('fee_category/view',[FeeCategoryController::class,'index'])->name('fee_category.index');
+    Route::get('fee_category/add',[FeeCategoryController::class,'create'])->name('fee_category.create');
+    Route::post('fee_category/add',[FeeCategoryController::class,'store'])->name('fee_category.store');
 });
 
 

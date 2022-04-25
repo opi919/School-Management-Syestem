@@ -63,6 +63,7 @@
                     <li><a href="{{ route('class.index') }}"><i class="ti-more"></i>class</a></li>
                     <li><a href="{{ route('year.index') }}"><i class="ti-more"></i>year</a></li>
                     <li><a href="{{ route('group.index') }}"><i class="ti-more"></i>group</a></li>
+                    <li><a href="{{ route('fee_category.index') }}"><i class="ti-more"></i>fee category</a></li>
                 </ul>
             </li>
 
