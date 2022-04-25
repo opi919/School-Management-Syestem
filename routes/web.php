@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\management\FeeAmoutController;
 use App\Http\Controllers\backend\management\FeeCategoryController;
 use App\Http\Controllers\backend\management\StudentClassController;
 use App\Http\Controllers\backend\management\StudentGroupController;
@@ -54,8 +55,12 @@ Route::prefix('management')->group(function (){
     Route::post('group/add',[StudentGroupController::class,'store'])->name('group.store');
     // fee category
     Route::get('fee_category/view',[FeeCategoryController::class,'index'])->name('fee_category.index');
-    Route::get('fee_category/add',[FeeCategoryController::class,'create'])->name('fee_category.create');
+    Route::get('fee_category/create',[FeeCategoryController::class,'create'])->name('fee_category.create');
     Route::post('fee_category/add',[FeeCategoryController::class,'store'])->name('fee_category.store');
+    // fee amount
+    Route::get('fee_amount/view',[FeeAmoutController::class,'index'])->name('fee_amount.index');
+    Route::get('fee_amount/create',[FeeAmoutController::class,'create'])->name('fee_amount.create');
+    Route::post('fee_amount/add',[FeeAmoutController::class,'store'])->name('fee_amount.store');
 });
 
 
