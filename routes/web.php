@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\management\StudentClassController;
+use App\Http\Controllers\backend\management\StudentGroupController;
+use App\Http\Controllers\backend\management\StudentYearController;
 use App\Http\Controllers\backend\ManagementController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -36,12 +39,18 @@ Route::prefix('user')->group(function (){
 });
 //classes
 Route::prefix('management')->group(function (){
-    Route::get('class/view',[ManagementController::class,'index'])->name('class.index');
-    Route::get('class/add',[ManagementController::class,'add'])->name('class.add');
-    Route::post('class/add',[ManagementController::class,'store'])->name('class.store');
-    Route::get('year/view',[ManagementController::class,'yindex'])->name('year.index');
-    Route::get('year/add',[ManagementController::class,'yadd'])->name('year.add');
-    Route::post('year/add',[ManagementController::class,'ystore'])->name('year.store');
+    //class
+    Route::get('class/view',[StudentClassController::class,'index'])->name('class.index');
+    Route::get('class/add',[StudentClassController::class,'add'])->name('class.add');
+    Route::post('class/add',[StudentClassController::class,'store'])->name('class.store');
+    //year
+    Route::get('year/view',[StudentYearController::class,'index'])->name('year.index');
+    Route::get('year/add',[StudentYearController::class,'add'])->name('year.add');
+    Route::post('year/add',[StudentYearController::class,'store'])->name('year.store');
+    //group
+    Route::get('group/view',[StudentGroupController::class,'index'])->name('group.index');
+    Route::get('group/add',[StudentGroupController::class,'add'])->name('group.add');
+    Route::post('group/add',[StudentGroupController::class,'store'])->name('group.store');
 });
 
 
