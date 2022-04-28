@@ -65,6 +65,8 @@
                     <li><a href="{{ route('group.index') }}"><i class="ti-more"></i>group</a></li>
                     <li><a href="{{ route('fee_category.index') }}"><i class="ti-more"></i>fee category</a></li>
                     <li><a href="{{ route('fee_amount.index') }}"><i class="ti-more"></i>fee amount</a></li>
+                    <li><a href="{{ route('exam_type.index') }}"><i class="ti-more"></i>exam type</a></li>
+                    <li><a href="{{ route('subjects.index') }}"><i class="ti-more"></i>subjects</a></li>
                 </ul>
             </li>
 
