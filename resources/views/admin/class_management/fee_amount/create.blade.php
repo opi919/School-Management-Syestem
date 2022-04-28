@@ -18,12 +18,15 @@
                                 <div class="form-group">
                                     <label>Fee Categories</label>
                                     <select class="form-control" name="fee_categories" id="fee_categories">
-                                        <option value="0">Fee Categories</option>
+                                        <option value="">Select Option</option>
                                         @foreach ($fee_categories as $fee_category)
                                             <option value="{{ $fee_category->id }}">{{ $fee_category->fee_category }}
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('fee_categories')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-2" style="display: flex;align-items:center;margin-top:10px;">
@@ -36,18 +39,21 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Classes</label>
-                                    <select class="form-control" name="classes" id="classes">
-                                        <option value="0">Classes</option>
+                                    <select class="form-control" name="classes[]" id="classes">
+                                        <option value="">Select Option</option>
                                         @foreach ($classes as $class)
                                             <option value="{{ $class->id }}">{{ $class->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('classes')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Fee Amount</label>
-                                    <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount">
+                                    <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount[]">
                                 </div>
                                 @error('fee_amount')
                                     <span class="text-danger">{{ $message }}</span>
@@ -70,18 +76,21 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <label>Classes</label>
-                        <select class="form-control" name="classes" id="classes">
-                            <option value="0">Classes</option>
+                        <select class="form-control" name="classes[]" id="classes">
+                            <option value="">Select Option</option>
                             @foreach ($classes as $class)
                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
                         </select>
+                        @error('classes')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
                         <label>Fee Amount</label>
-                        <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount">
+                        <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount[]">
                     </div>
                     @error('fee_amount')
                         <span class="text-danger">{{ $message }}</span>

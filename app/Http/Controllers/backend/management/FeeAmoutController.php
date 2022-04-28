@@ -17,7 +17,7 @@ class FeeAmoutController extends Controller
      */
     public function index()
     {
-        $data['amounts'] = FeeAmount::all();
+        $data['amounts'] = FeeAmount::select('fee_category_id')->groupBy('fee_category_id')->get();
         return view('admin.class_management.fee_amount.index', $data);
     }
 
@@ -30,7 +30,7 @@ class FeeAmoutController extends Controller
     {
         $data['fee_categories'] = FeeCategory::all();
         $data['classes'] = StudentClass::all();
-        return view('admin.class_management.fee_amount.create',$data);
+        return view('admin.class_management.fee_amount.create', $data);
     }
 
     /**
@@ -43,15 +43,19 @@ class FeeAmoutController extends Controller
     {
         $request->validate(
             [
-                'fee_amount' => 'required|unique:fee_amounts',
-            ],
-            [
-                'fee_amount.unique' => 'fucked!!'
+                'fee_categories' => 'required',
+                'classes' => 'required',
+                'fee_amount' => 'required',
             ]
         );
-        $class = new FeeAmount();
-        $class->fee_amount = $request->fee_amount;
-        $class->save();
+        $count = count($request->classes);
+        for ($i = 0; $i < $count; $i++) {
+            $item = new FeeAmount();
+            $item->fee_category_id = $request->fee_categories;
+            $item->class_id = $request->classes[$i];
+            $item->amount = $request->fee_amount[$i];
+            $item->save();
+        }
 
         return redirect()->route('fee_amount.index');
     }
@@ -62,9 +66,11 @@ class FeeAmoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function view($id)
     {
-        //
+        $data['allData'] = FeeAmount::where('fee_category_id',$id)->orderBy('class_id')->get();
+        // dd($data['allData']->toArray());
+        return view('admin.class_management.fee_amount.view',$data);
     }
 
     /**

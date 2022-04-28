@@ -60,6 +60,7 @@ Route::prefix('management')->group(function (){
     // fee amount
     Route::get('fee_amount/view',[FeeAmoutController::class,'index'])->name('fee_amount.index');
     Route::get('fee_amount/create',[FeeAmoutController::class,'create'])->name('fee_amount.create');
+    Route::get('fee_amount/view/{id}',[FeeAmoutController::class,'view'])->name('fee_amount.view');
     Route::post('fee_amount/add',[FeeAmoutController::class,'store'])->name('fee_amount.store');
 });
 
