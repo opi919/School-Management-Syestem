@@ -1,3 +1,8 @@
+@php
+$prefix = Request::route()->getPrefix();
+$route = Route::current()->getName();
+
+@endphp
 <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar">
@@ -17,14 +22,14 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <li>
+            <li class="{{ $route == 'dashboard' ? 'active' : '' }}">
                 <a href="/dashboard">
                     <i data-feather="pie-chart"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{ $prefix == '/user' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="message-circle"></i>
                     <span>Users</span>
@@ -51,7 +56,7 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{ $prefix == '/management' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="file"></i>
                     <span>Management</span>
@@ -63,11 +68,13 @@
                     <li><a href="{{ route('class.index') }}"><i class="ti-more"></i>class</a></li>
                     <li><a href="{{ route('year.index') }}"><i class="ti-more"></i>year</a></li>
                     <li><a href="{{ route('group.index') }}"><i class="ti-more"></i>group</a></li>
-                    <li><a href="{{ route('fee_category.index') }}"><i class="ti-more"></i>fee category</a></li>
+                    <li><a href="{{ route('fee_category.index') }}"><i class="ti-more"></i>fee category</a>
+                    </li>
                     <li><a href="{{ route('fee_amount.index') }}"><i class="ti-more"></i>fee amount</a></li>
                     <li><a href="{{ route('exam_type.index') }}"><i class="ti-more"></i>exam type</a></li>
                     <li><a href="{{ route('subjects.index') }}"><i class="ti-more"></i>subjects</a></li>
-                    <li><a href="{{ route('assign_subject.index') }}"><i class="ti-more"></i>assign subject</a></li>
+                    <li><a href="{{ route('assign_subject.index') }}"><i class="ti-more"></i>assign
+                            subject</a></li>
                 </ul>
             </li>
 

@@ -5,7 +5,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Class</h3>
+                    <h3 class="box-title">{{ $allData[0]->class->name }}</h3>
                     <a href="{{ route('assign_subject.create') }}" class="btn btn-info float-right">Assign Subject</a>
                 </div>
                 <!-- /.box-header -->
@@ -15,8 +15,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Class Name</th>
-
+                                    <th>Subject</th>
+                                    <th>Full Mark</th>
+                                    <th>Pass Mark</th>
+                                    <th>Subjective Mark</th>
                                     <th style="width: 20%">Action</th>
                                 </tr>
                             </thead>
@@ -25,10 +27,12 @@
                                 @foreach ($allData as $item)
                                     <tr>
                                         <th>{{ $i++ }}</th>
-                                        <th>{{ $item->class->name }}</th>
+                                        <th>{{ $item->subject->subjects }}</th>
+                                        <th>{{ $item->full_mark }}</th>
+                                        <th>{{ $item->pass_mark }}</th>
+                                        <th>{{ $item->subjective_mark }}</th>
                                         <th>
-                                            <a href="{{ route('assign_subject.show',$item->class_id) }}" class="btn btn-success">view</a>
-                                            <a href="" class="btn btn-danger">delete</a>
+                                            <a href="" class="btn btn-success">edit</a>
                                         </th>
                                     </tr>
                                 @endforeach
@@ -36,7 +40,10 @@
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Class Name</th>
+                                    <th>Subject</th>
+                                    <th>Full Mark</th>
+                                    <th>Pass Mark</th>
+                                    <th>Subjective Mark</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

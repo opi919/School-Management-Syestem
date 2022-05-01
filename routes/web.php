@@ -9,6 +9,7 @@ use App\Http\Controllers\backend\management\StudentClassController;
 use App\Http\Controllers\backend\management\StudentGroupController;
 use App\Http\Controllers\backend\management\StudentYearController;
 use App\Http\Controllers\backend\management\SubjectsController;
+use App\Http\Controllers\backend\studentManagement\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +42,7 @@ Route::middleware([
 Route::prefix('user')->group(function () {
     Route::get('/view', [UserController::class, 'index'])->name('user.index');
 });
-//classes
+//setup management
 Route::prefix('management')->group(function () {
     //class
     Route::get('class/view', [StudentClassController::class, 'index'])->name('class.index');
@@ -65,15 +66,12 @@ Route::prefix('management')->group(function () {
     Route::get('fee_amount/view/{id}', [FeeAmoutController::class, 'view'])->name('fee_amount.view');
     Route::post('fee_amount/add', [FeeAmoutController::class, 'store'])->name('fee_amount.store');
     // exam type
-    Route::get('exam_type/view', [ExamTypeController::class, 'index'])->name('exam_type.index');
-    Route::get('exam_type/create', [ExamTypeController::class, 'create'])->name('exam_type.create');
-    Route::post('exam_type/add', [ExamTypeController::class, 'store'])->name('exam_type.store');
-    // subjects
-    Route::get('subjects/view', [SubjectsController::class, 'index'])->name('subjects.index');
-    Route::get('subjects/create', [SubjectsController::class, 'create'])->name('subjects.create');
-    Route::post('subjects/add', [SubjectsController::class, 'store'])->name('subjects.store');
-    // assign subject
-    Route::get('subassign_subjectjects/view', [AssignSubjectController::class, 'index'])->name('assign_subject.index');
-    Route::get('assign_subject/create', [AssignSubjectController::class, 'create'])->name('assign_subject.create');
-    Route::post('assign_subject/add', [AssignSubjectController::class, 'store'])->name('assign_subject.store');
+    Route::resource('exam_type',ExamTypeController::class);
+    Route::resource('subjects',SubjectsController::class);
+    Route::resource('assign_subject',AssignSubjectController::class);
 });
+// student management
+Route::prefix('/student')->group(function(){
+    Route::resource('registration',RegistrationController::class);
+});
+
