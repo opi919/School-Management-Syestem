@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\management\AssignSubjectController;
 use App\Http\Controllers\backend\management\ExamTypeController;
 use App\Http\Controllers\backend\management\FeeAmoutController;
 use App\Http\Controllers\backend\management\FeeCategoryController;
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::middleware([
     'auth:sanctum',
@@ -37,43 +38,42 @@ Route::middleware([
     })->name('dashboard');
 });
 //users
-Route::prefix('user')->group(function (){
-    Route::get('/view',[UserController::class,'index'])->name('user.index');
+Route::prefix('user')->group(function () {
+    Route::get('/view', [UserController::class, 'index'])->name('user.index');
 });
 //classes
-Route::prefix('management')->group(function (){
+Route::prefix('management')->group(function () {
     //class
-    Route::get('class/view',[StudentClassController::class,'index'])->name('class.index');
-    Route::get('class/add',[StudentClassController::class,'add'])->name('class.add');
-    Route::post('class/add',[StudentClassController::class,'store'])->name('class.store');
+    Route::get('class/view', [StudentClassController::class, 'index'])->name('class.index');
+    Route::get('class/add', [StudentClassController::class, 'add'])->name('class.add');
+    Route::post('class/add', [StudentClassController::class, 'store'])->name('class.store');
     //year
-    Route::get('year/view',[StudentYearController::class,'index'])->name('year.index');
-    Route::get('year/add',[StudentYearController::class,'add'])->name('year.add');
-    Route::post('year/add',[StudentYearController::class,'store'])->name('year.store');
+    Route::get('year/view', [StudentYearController::class, 'index'])->name('year.index');
+    Route::get('year/add', [StudentYearController::class, 'add'])->name('year.add');
+    Route::post('year/add', [StudentYearController::class, 'store'])->name('year.store');
     //group
-    Route::get('group/view',[StudentGroupController::class,'index'])->name('group.index');
-    Route::get('group/add',[StudentGroupController::class,'add'])->name('group.add');
-    Route::post('group/add',[StudentGroupController::class,'store'])->name('group.store');
+    Route::get('group/view', [StudentGroupController::class, 'index'])->name('group.index');
+    Route::get('group/add', [StudentGroupController::class, 'add'])->name('group.add');
+    Route::post('group/add', [StudentGroupController::class, 'store'])->name('group.store');
     // fee category
-    Route::get('fee_category/view',[FeeCategoryController::class,'index'])->name('fee_category.index');
-    Route::get('fee_category/create',[FeeCategoryController::class,'create'])->name('fee_category.create');
-    Route::post('fee_category/add',[FeeCategoryController::class,'store'])->name('fee_category.store');
+    Route::get('fee_category/view', [FeeCategoryController::class, 'index'])->name('fee_category.index');
+    Route::get('fee_category/create', [FeeCategoryController::class, 'create'])->name('fee_category.create');
+    Route::post('fee_category/add', [FeeCategoryController::class, 'store'])->name('fee_category.store');
     // fee amount
-    Route::get('fee_amount/view',[FeeAmoutController::class,'index'])->name('fee_amount.index');
-    Route::get('fee_amount/create',[FeeAmoutController::class,'create'])->name('fee_amount.create');
-    Route::get('fee_amount/view/{id}',[FeeAmoutController::class,'view'])->name('fee_amount.view');
-    Route::post('fee_amount/add',[FeeAmoutController::class,'store'])->name('fee_amount.store');
+    Route::get('fee_amount/view', [FeeAmoutController::class, 'index'])->name('fee_amount.index');
+    Route::get('fee_amount/create', [FeeAmoutController::class, 'create'])->name('fee_amount.create');
+    Route::get('fee_amount/view/{id}', [FeeAmoutController::class, 'view'])->name('fee_amount.view');
+    Route::post('fee_amount/add', [FeeAmoutController::class, 'store'])->name('fee_amount.store');
     // exam type
-    Route::get('exam_type/view',[ExamTypeController::class,'index'])->name('exam_type.index');
-    Route::get('exam_type/create',[ExamTypeController::class,'create'])->name('exam_type.create');
-    Route::post('exam_type/add',[ExamTypeController::class,'store'])->name('exam_type.store');
+    Route::get('exam_type/view', [ExamTypeController::class, 'index'])->name('exam_type.index');
+    Route::get('exam_type/create', [ExamTypeController::class, 'create'])->name('exam_type.create');
+    Route::post('exam_type/add', [ExamTypeController::class, 'store'])->name('exam_type.store');
     // subjects
-    Route::get('subjects/view',[SubjectsController::class,'index'])->name('subjects.index');
-    Route::get('subjects/create',[SubjectsController::class,'create'])->name('subjects.create');
-    Route::post('subjects/add',[SubjectsController::class,'store'])->name('subjects.store');
+    Route::get('subjects/view', [SubjectsController::class, 'index'])->name('subjects.index');
+    Route::get('subjects/create', [SubjectsController::class, 'create'])->name('subjects.create');
+    Route::post('subjects/add', [SubjectsController::class, 'store'])->name('subjects.store');
+    // assign subject
+    Route::get('subassign_subjectjects/view', [AssignSubjectController::class, 'index'])->name('assign_subject.index');
+    Route::get('assign_subject/create', [AssignSubjectController::class, 'create'])->name('assign_subject.create');
+    Route::post('assign_subject/add', [AssignSubjectController::class, 'store'])->name('assign_subject.store');
 });
-
-
-
-
-

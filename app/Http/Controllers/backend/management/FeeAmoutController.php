@@ -7,6 +7,7 @@ use App\Models\FeeAmount;
 use App\Models\FeeCategory;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FeeAmoutController extends Controller
 {
@@ -41,13 +42,18 @@ class FeeAmoutController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
+        Validator::make(
+            $request->all(),
             [
                 'fee_categories' => 'required',
-                'classes' => 'required',
-                'fee_amount' => 'required',
+                'classes.*' => 'required',
+                'fee_amount.*' => 'required'
+            ],
+            [
+                'classes.*.required' => ' classes field required',
+                'fee_amount.*.required' => ' fee amount field required',
             ]
-        );
+        )->validate();
         $count = count($request->classes);
         for ($i = 0; $i < $count; $i++) {
             $item = new FeeAmount();
@@ -68,9 +74,9 @@ class FeeAmoutController extends Controller
      */
     public function view($id)
     {
-        $data['allData'] = FeeAmount::where('fee_category_id',$id)->orderBy('class_id')->get();
+        $data['allData'] = FeeAmount::where('fee_category_id', $id)->orderBy('class_id')->get();
         // dd($data['allData']->toArray());
-        return view('admin.class_management.fee_amount.view',$data);
+        return view('admin.class_management.fee_amount.view', $data);
     }
 
     /**

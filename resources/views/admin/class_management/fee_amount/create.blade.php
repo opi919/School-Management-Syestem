@@ -17,7 +17,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Fee Categories</label>
-                                    <select class="form-control" name="fee_categories" id="fee_categories">
+                                    <select class="form-control @error('fee_categories') is-invalid @enderror"
+                                        name="fee_categories" id="fee_categories">
                                         <option value="">Select Option</option>
                                         @foreach ($fee_categories as $fee_category)
                                             <option value="{{ $fee_category->id }}">{{ $fee_category->fee_category }}
@@ -39,13 +40,14 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Classes</label>
-                                    <select class="form-control" name="classes[]" id="classes">
+                                    <select class="form-control @error('classes[]') is-invalid @enderror" name="classes[]"
+                                        id="class">
                                         <option value="">Select Option</option>
                                         @foreach ($classes as $class)
                                             <option value="{{ $class->id }}">{{ $class->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('classes')
+                                    @error('classes.*')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -55,7 +57,7 @@
                                     <label>Fee Amount</label>
                                     <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount[]">
                                 </div>
-                                @error('fee_amount')
+                                @error('fee_amount.*')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -76,15 +78,15 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <label>Classes</label>
-                        <select class="form-control" name="classes[]" id="classes">
+                        <select class="form-control" name="classes[]" id="class">
                             <option value="">Select Option</option>
                             @foreach ($classes as $class)
                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
                         </select>
-                        @error('classes')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        @if ($errors->has('classes'))
+                            <span class="help-block">{{ $errors->first('classes') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -92,7 +94,7 @@
                         <label>Fee Amount</label>
                         <input type="text" class="form-control" placeholder="Fee Amount" name="fee_amount[]">
                     </div>
-                    @error('fee_amount')
+                    @error('fee_amount[]')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
