@@ -25,7 +25,7 @@
                                 @foreach ($allData as $item)
                                     <tr>
                                         <th>{{ $i++ }}</th>
-                                        <th>{{ $item->class_id }}</th>
+                                        <th>{{ $item->class->name }}</th>
                                         <th>
                                             <a href="" class="btn btn-success">view</a>
                                             <a href="" class="btn btn-danger">delete</a>

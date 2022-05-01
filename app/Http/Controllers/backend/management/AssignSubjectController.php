@@ -18,7 +18,7 @@ class AssignSubjectController extends Controller
      */
     public function index()
     {
-        $data['allData'] = AssignSubject::all();
+        $data['allData'] = AssignSubject::select('class_id')->groupBy('class_id')->get();
         return view('admin.class_management.assign_subject.index', $data);
     }
 
