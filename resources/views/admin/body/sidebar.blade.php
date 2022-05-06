@@ -29,19 +29,21 @@ $route = Route::current()->getName();
                 </a>
             </li>
 
-            <li class="treeview {{ $prefix == '/user' ? 'active' : '' }}">
-                <a href="#">
-                    <i data-feather="message-circle"></i>
-                    <span>Users</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('user.index') }}"><i class="ti-more"></i>view user</a></li>
-                    <li><a href="calendar.html"><i class="ti-more"></i>add user</a></li>
-                </ul>
-            </li>
+            @if (Auth::user()->role == 'admin')
+                <li class="treeview {{ $prefix == '/user' ? 'active' : '' }}">
+                    <a href="#">
+                        <i data-feather="message-circle"></i>
+                        <span>Manage User</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('user.index') }}"><i class="ti-more"></i>view user</a></li>
+                        <li><a href="calendar.html"><i class="ti-more"></i>add user</a></li>
+                    </ul>
+                </li>
+            @endif
 
             <li class="treeview">
                 <a href="#">
@@ -75,6 +77,18 @@ $route = Route::current()->getName();
                     <li><a href="{{ route('subjects.index') }}"><i class="ti-more"></i>subjects</a></li>
                     <li><a href="{{ route('assign_subject.index') }}"><i class="ti-more"></i>assign
                             subject</a></li>
+                </ul>
+            </li>
+            <li class="treeview {{ $prefix == '/student' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="file"></i>
+                    <span>Student Management</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=""><i class="ti-more"></i>registration</a></li>
                 </ul>
             </li>
 

@@ -6,7 +6,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Users</h3>
-                    <a href="" class="btn btn-info float-right">ADD</a>
+                    <a href="{{ route('user.create') }}" class="btn btn-info float-right">Add User</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -18,7 +18,7 @@
                                     <th>Role</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Created at</th>
+                                    <th>Code</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -26,10 +26,10 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <th>{{ $user->id }}</th>
-                                        <th>{{ $user->user_type }}</th>
+                                        <th>{{ $user->role }}</th>
                                         <th>{{ $user->name }}</th>
                                         <th>{{ $user->email }}</th>
-                                        <th>{{ $user->created_at }}</th>
+                                        <th>{{ $user->code }}</th>
                                         <th>
                                             <a href="" class="btn btn-success">view</a>
                                             <a href="" class="btn btn-danger">delete</a>
@@ -43,7 +43,7 @@
                                     <th>Role</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Created at</th>
+                                    <th>Code</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

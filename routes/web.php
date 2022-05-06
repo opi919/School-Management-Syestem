@@ -37,41 +37,40 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('dashboard');
+    //users
+    Route::prefix('user')->group(function () {
+        Route::resource('user',UserController::class);
+    });
+    //setup management
+    Route::prefix('management')->group(function () {
+        //class
+        Route::get('class/view', [StudentClassController::class, 'index'])->name('class.index');
+        Route::get('class/add', [StudentClassController::class, 'add'])->name('class.add');
+        Route::post('class/add', [StudentClassController::class, 'store'])->name('class.store');
+        //year
+        Route::get('year/view', [StudentYearController::class, 'index'])->name('year.index');
+        Route::get('year/add', [StudentYearController::class, 'add'])->name('year.add');
+        Route::post('year/add', [StudentYearController::class, 'store'])->name('year.store');
+        //group
+        Route::get('group/view', [StudentGroupController::class, 'index'])->name('group.index');
+        Route::get('group/add', [StudentGroupController::class, 'add'])->name('group.add');
+        Route::post('group/add', [StudentGroupController::class, 'store'])->name('group.store');
+        // fee category
+        Route::get('fee_category/view', [FeeCategoryController::class, 'index'])->name('fee_category.index');
+        Route::get('fee_category/create', [FeeCategoryController::class, 'create'])->name('fee_category.create');
+        Route::post('fee_category/add', [FeeCategoryController::class, 'store'])->name('fee_category.store');
+        // fee amount
+        Route::get('fee_amount/view', [FeeAmoutController::class, 'index'])->name('fee_amount.index');
+        Route::get('fee_amount/create', [FeeAmoutController::class, 'create'])->name('fee_amount.create');
+        Route::get('fee_amount/view/{id}', [FeeAmoutController::class, 'view'])->name('fee_amount.view');
+        Route::post('fee_amount/add', [FeeAmoutController::class, 'store'])->name('fee_amount.store');
+        // exam type
+        Route::resource('exam_type', ExamTypeController::class);
+        Route::resource('subjects', SubjectsController::class);
+        Route::resource('assign_subject', AssignSubjectController::class);
+    });
+    // student management
+    Route::prefix('/student')->group(function () {
+        Route::resource('registration', RegistrationController::class);
+    });
 });
-//users
-Route::prefix('user')->group(function () {
-    Route::get('/view', [UserController::class, 'index'])->name('user.index');
-});
-//setup management
-Route::prefix('management')->group(function () {
-    //class
-    Route::get('class/view', [StudentClassController::class, 'index'])->name('class.index');
-    Route::get('class/add', [StudentClassController::class, 'add'])->name('class.add');
-    Route::post('class/add', [StudentClassController::class, 'store'])->name('class.store');
-    //year
-    Route::get('year/view', [StudentYearController::class, 'index'])->name('year.index');
-    Route::get('year/add', [StudentYearController::class, 'add'])->name('year.add');
-    Route::post('year/add', [StudentYearController::class, 'store'])->name('year.store');
-    //group
-    Route::get('group/view', [StudentGroupController::class, 'index'])->name('group.index');
-    Route::get('group/add', [StudentGroupController::class, 'add'])->name('group.add');
-    Route::post('group/add', [StudentGroupController::class, 'store'])->name('group.store');
-    // fee category
-    Route::get('fee_category/view', [FeeCategoryController::class, 'index'])->name('fee_category.index');
-    Route::get('fee_category/create', [FeeCategoryController::class, 'create'])->name('fee_category.create');
-    Route::post('fee_category/add', [FeeCategoryController::class, 'store'])->name('fee_category.store');
-    // fee amount
-    Route::get('fee_amount/view', [FeeAmoutController::class, 'index'])->name('fee_amount.index');
-    Route::get('fee_amount/create', [FeeAmoutController::class, 'create'])->name('fee_amount.create');
-    Route::get('fee_amount/view/{id}', [FeeAmoutController::class, 'view'])->name('fee_amount.view');
-    Route::post('fee_amount/add', [FeeAmoutController::class, 'store'])->name('fee_amount.store');
-    // exam type
-    Route::resource('exam_type',ExamTypeController::class);
-    Route::resource('subjects',SubjectsController::class);
-    Route::resource('assign_subject',AssignSubjectController::class);
-});
-// student management
-Route::prefix('/student')->group(function(){
-    Route::resource('registration',RegistrationController::class);
-});
-
