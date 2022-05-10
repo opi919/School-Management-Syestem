@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Fee Categories</label>
+                                    <label>Role</label>
                                     <select class="form-control @error('role') is-invalid @enderror"
                                         name="role" id="role">
                                         <option value="">Select Option</option>

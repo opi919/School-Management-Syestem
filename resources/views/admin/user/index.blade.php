@@ -5,7 +5,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Users</h3>
+                    <h3 class="box-title">Users(Admin)</h3>
                     <a href="{{ route('user.create') }}" class="btn btn-info float-right">Add User</a>
                 </div>
                 <!-- /.box-header -->
