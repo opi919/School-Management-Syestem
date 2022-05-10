@@ -88,7 +88,7 @@ $route = Route::current()->getName();
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="ti-more"></i>registration</a></li>
+                    <li><a href="{{ route('registration.index') }}"><i class="ti-more"></i>registration</a></li>
                 </ul>
             </li>
 
@@ -115,7 +115,7 @@ $route = Route::current()->getName();
             </li>
 
             <li>
-                <a href="auth_login.html">
+                <a href="{{ route('logout') }}">
                     <i data-feather="lock"></i>
                     <span>Log Out</span>
                 </a>
