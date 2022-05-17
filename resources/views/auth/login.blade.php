@@ -21,11 +21,6 @@
 <body class="hold-transition theme-primary bg-gradient-primary">
 	
 	<div class="container h-p100">
-        @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif
 		<div class="row align-items-center justify-content-md-center h-p100">	
 			
 			<div class="col-12">
@@ -36,6 +31,11 @@
 							<p class="text-white-50">Sign in to start your session</p>							
 						</div>
 						<div class="p-30 rounded30 box-shadowed b-2 b-dashed">
+							@if (session('status'))
+							<div class="mb-4 font-medium text-sm text-green-600">
+								{{ session('status') }}
+							</div>
+						@endif
 							<form action="{{ route('login') }}" method="post">
                                 @csrf
 								<div class="form-group">

@@ -6,7 +6,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Student List</h3>
-                    <a href="{{ route('assign_subject.create') }}" class="btn btn-info float-right">Assign Student</a>
+                    <a href="{{ route('registration.create') }}" class="btn btn-info float-right">Assign Student</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -26,9 +26,9 @@
                                @foreach ($students as $student)
                                    <tr>
                                     <th>{{ $i++ }}</th>
-                                    <th>Name</th>
+                                    <th>{{ $student->student_id }}</th>
                                     <th>{{ $student->class_id }}</th>
-                                    <th>{{  }}</th>
+                                    <th>{{ $student->group_id }}</th>
                                     <th style="width: 20%">Action</th>
                                    </tr>
                                @endforeach

@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\backend\studentManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\StudentClass;
+use App\Models\StudentGroup;
+use App\Models\StudentManagement\AssignStudent;
+use App\Models\StudentYear;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegistrationController extends Controller
 {
@@ -14,7 +20,8 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        
+        $data['students'] = AssignStudent::all();
+        return view('admin.student_management.registration.index', $data);
     }
 
     /**
@@ -24,7 +31,10 @@ class RegistrationController extends Controller
      */
     public function create()
     {
-        //
+        $data['years'] = StudentYear::all();
+        $data['classes'] = StudentClass::all();
+        $data['groups'] = StudentGroup::all();
+        return view('admin.student_management.registration.create', $data);
     }
 
     /**
@@ -35,7 +45,60 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'email' => 'required|unique:users',
+            'name' => 'required|min:3',
+            'fname' => 'required|min:3',
+            'mname' => 'required|min:3',
+            'mobile' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'religion' => 'required',
+            'dob' => 'required',
+            'year' => 'required',
+            'class' => 'required',
+            'group' => 'required',
+            'image' => 'required',
+        ])->validate();
+        $student = AssignStudent::where('class_id', $request->class)->orderBy('student_id', 'desc')->first();
+        if ($student) {
+            $user = User::find($student)->id_no;
+            dd($user);
+            $roll = $user + 1;
+        } else {
+            $roll = $request->year . '00001';
+        }
+        $code = rand(00000000, 99999999);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->code = $code;
+        $user->password = bcrypt($code);
+        $user->user_type = 'student';
+        $user->father_name = $request->fname;
+        $user->mother_name = $request->mname;
+        $user->mobile = $request->mobile;
+        $user->address = $request->address;
+        $user->gender = $request->gender;
+        $user->religion = $request->religion;
+        $user->dob = $request->dob;
+        $user->id_no = $roll;
+        $file = $request->image;
+        // dd($file);
+        $filename = date('dmYHi') . $file->getClientOriginalName();
+        // dd($filename);
+        $file->storeAs('student_images', $filename);
+        $user->profile_photo_path = $filename;
+        $user->save();
+
+        $assign_student = new AssignStudent();
+        $assign_student->student_id = $user->id;
+        $assign_student->year_id = $request->year;
+        $assign_student->class_id = $request->class;
+        $assign_student->group_id = $request->group;
+        $assign_student->save();
+
+        return redirect()->route('registration.index');
     }
 
     /**
