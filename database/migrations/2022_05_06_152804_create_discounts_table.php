@@ -17,7 +17,7 @@ class CreateDiscountsTable extends Migration
             $table->id();
             $table->unsignedInteger('assign_student_id');
             $table->unsignedInteger('fee_category_id')->nullable();
-            $table->double('discount')->nullable();
+            $table->double('discount')->default(0);
             $table->timestamps();
         });
     }

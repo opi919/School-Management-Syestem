@@ -16,8 +16,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Class Name</th>
+                                    <th>Class</th>
                                     <th>Roll</th>
+                                    <th>Group</th>
+                                    <th>Year</th>
                                     <th style="width: 20%">Action</th>
                                 </tr>
                             </thead>
@@ -28,15 +30,24 @@
                                     <th>{{ $i++ }}</th>
                                     <th>{{ $student->student_id }}</th>
                                     <th>{{ $student->class_id }}</th>
+                                    <th>roll</th>
                                     <th>{{ $student->group_id }}</th>
-                                    <th style="width: 20%">Action</th>
+                                    <th>{{ $student->year_id }}</th>
+                                    <th>
+                                        <a href="" class="btn btn-warning">Edit</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </th>
                                    </tr>
                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Class Name</th>
+                                    <th>Name</th>
+                                    <th>Class</th>
+                                    <th>Roll</th>
+                                    <th>Group</th>
+                                    <th>Year</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

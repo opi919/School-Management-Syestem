@@ -186,8 +186,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Discount</label>
-                                    <input type="text" placeholder="Discount" name="dicount" value="{{ old('dicount') }}"
-                                        class="form-control @error('dicount')  @enderror">
+                                    <input type="text" placeholder="Discount" name="discount"
+                                        value="{{ old('discount') }}" class="form-control @error('discount')  @enderror">
                                     @error('discount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
