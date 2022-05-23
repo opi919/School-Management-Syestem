@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\backend\studentManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\FeeCategory;
 use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use App\Models\StudentManagement\AssignStudent;
+use App\Models\StudentManagement\Discount;
 use App\Models\StudentYear;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -61,9 +63,10 @@ class RegistrationController extends Controller
             'image' => 'required',
         ])->validate();
         $student = AssignStudent::where('class_id', $request->class)->orderBy('student_id', 'desc')->first();
-        if ($student) {
-            $user = User::find($student)->id_no;
-            dd($user);
+        // dd($student->student_id);
+        $roll = null;
+        if ($student->student_id!= null) {
+            $user = User::find($student->student_id)->id_no;
             $roll = $user + 1;
         } else {
             $roll = $request->year . '00001';
@@ -97,6 +100,14 @@ class RegistrationController extends Controller
         $assign_student->class_id = $request->class;
         $assign_student->group_id = $request->group;
         $assign_student->save();
+
+        $discount = new Discount();
+        $discount->assign_student_id = $assign_student->id;
+        $discount->fee_category_id = FeeCategory::where('fee_category','Registration Fee')->first()->id;
+        if($request->discount){
+            $discount->discount = $request->discount;
+        }
+        $discount->save();
 
         return redirect()->route('registration.index');
     }
