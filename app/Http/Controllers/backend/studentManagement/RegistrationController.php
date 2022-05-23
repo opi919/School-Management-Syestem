@@ -63,13 +63,15 @@ class RegistrationController extends Controller
             'image' => 'required',
         ])->validate();
         $student = AssignStudent::where('class_id', $request->class)->orderBy('student_id', 'desc')->first();
-        // dd($student->student_id);
+        // dd($student);
         $roll = null;
-        if ($student->student_id!= null) {
+        if ($student != null) {
             $user = User::find($student->student_id)->id_no;
             $roll = $user + 1;
         } else {
-            $roll = $request->year . '00001';
+            $year = StudentYear::where('id',$request->year)->first();
+            $roll = $year->year . '00001';
+            // dd($roll);
         }
         $code = rand(00000000, 99999999);
         $user = new User();
@@ -87,9 +89,7 @@ class RegistrationController extends Controller
         $user->dob = $request->dob;
         $user->id_no = $roll;
         $file = $request->image;
-        // dd($file);
         $filename = date('dmYHi') . $file->getClientOriginalName();
-        // dd($filename);
         $file->storeAs('student_images', $filename);
         $user->profile_photo_path = $filename;
         $user->save();
@@ -101,14 +101,13 @@ class RegistrationController extends Controller
         $assign_student->group_id = $request->group;
         $assign_student->save();
 
-        $discount = new Discount();
-        $discount->assign_student_id = $assign_student->id;
-        $discount->fee_category_id = FeeCategory::where('fee_category','Registration Fee')->first()->id;
-        if($request->discount){
+        if ($request->discount) {
+            $discount = new Discount();
+            $discount->assign_student_id = $assign_student->id;
+            $discount->fee_category_id = FeeCategory::where('fee_category', 'Registration Fee')->first()->id;
             $discount->discount = $request->discount;
+            $discount->save();
         }
-        $discount->save();
-
         return redirect()->route('registration.index');
     }
 
