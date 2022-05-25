@@ -62,16 +62,13 @@ class RegistrationController extends Controller
             'group' => 'required',
             'image' => 'required',
         ])->validate();
-        $student = AssignStudent::where('class_id', $request->class)->orderBy('student_id', 'desc')->first();
-        // dd($student);
-        $roll = null;
-        if ($student != null) {
-            $user = User::find($student->student_id)->id_no;
-            $roll = $user + 1;
+        $student = User::orderBy('id_no', 'desc')->first();
+        if ($student->id_no == null) {
+            $year = StudentYear::where('id', $request->year)->first();
+            $id_no = $year->year . '00001';
         } else {
-            $year = StudentYear::where('id',$request->year)->first();
-            $roll = $year->year . '00001';
-            // dd($roll);
+            $user = User::find($student->id)->id_no;
+            $id_no = $user + 1;
         }
         $code = rand(00000000, 99999999);
         $user = new User();
@@ -87,10 +84,10 @@ class RegistrationController extends Controller
         $user->gender = $request->gender;
         $user->religion = $request->religion;
         $user->dob = $request->dob;
-        $user->id_no = $roll;
+        $user->id_no = $id_no;
         $file = $request->image;
         $filename = date('dmYHi') . $file->getClientOriginalName();
-        $file->storeAs('student_images', $filename);
+        $file->storeAs('public/student_images', $filename);
         $user->profile_photo_path = $filename;
         $user->save();
 
@@ -111,6 +108,35 @@ class RegistrationController extends Controller
         return redirect()->route('registration.index');
     }
 
+    public function promote($id)
+    {
+        // dd($id);
+        $data['assign_students'] = AssignStudent::with('discount')->where('id', $id)->get();
+        $data['years'] = StudentYear::all();
+        $data['classes'] = StudentClass::all();
+        $data['groups'] = StudentGroup::all();
+        return view('admin.student_management.registration.promote', $data);
+    }
+
+    public function promoteUpdate($id, Request $request)
+    {
+        Validator::make($request->all(), [
+            'year' => 'required',
+            'class' => 'required',
+            'group' => 'required',
+        ])->validate();
+        $assign_student = AssignStudent::find($id);
+        $assign_student->year_id = $request->year;
+        $assign_student->class_id = $request->class;
+        $assign_student->group_id = $request->group;
+        $assign_student->save();
+
+        $discount = Discount::where('assign_student_id', $id)->first();
+        $discount->discount = $request->discount;
+        $discount->save();
+
+        return redirect()->route('registration.index');
+    }
     /**
      * Display the specified resource.
      *

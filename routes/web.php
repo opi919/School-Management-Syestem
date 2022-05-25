@@ -39,7 +39,7 @@ Route::middleware([
     })->name('dashboard');
     //users
     Route::prefix('user')->group(function () {
-        Route::resource('user',UserController::class);
+        Route::resource('user', UserController::class);
     });
     //setup management
     Route::prefix('management')->group(function () {
@@ -72,5 +72,7 @@ Route::middleware([
     // student management
     Route::prefix('/student')->group(function () {
         Route::resource('registration', RegistrationController::class);
+        Route::get('/registration/promote/{id}', [RegistrationController::class, 'promote'])->name('registration.promote');
+        Route::post('/registration/promote/update/{id}', [RegistrationController::class, 'promoteUpdate'])->name('registration.promote.update');
     });
 });

@@ -15,6 +15,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Class</th>
                                     <th>Roll</th>
@@ -28,14 +29,17 @@
                                @foreach ($students as $student)
                                    <tr>
                                     <th>{{ $i++ }}</th>
-                                    <th>{{ $student->student_id }}</th>
-                                    <th>{{ $student->class_id }}</th>
-                                    <th>roll</th>
-                                    <th>{{ $student->group_id }}</th>
-                                    <th>{{ $student->year_id }}</th>
+                                    <th>
+                                        <img src="{{ asset('storage/student_images/'.$student->user->profile_photo_path) }}" alt="" width="100">
+                                    </th>
+                                    <th>{{ $student->user->name }}</th>
+                                    <th>{{ $student->class->name }}</th>
+                                    <th>{{ $student->user->id_no }}</th>
+                                    <th>{{ $student->group->group }}</th>
+                                    <th>{{ $student->year->year }}</th>
                                     <th>
                                         <a href="" class="btn btn-warning">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('registration.promote',$student->id) }}" class="btn btn-primary">Promote</a>
                                     </th>
                                    </tr>
                                @endforeach
@@ -43,6 +47,7 @@
                             <tfoot>
                                 <tr>
                                     <th>#</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Class</th>
                                     <th>Roll</th>

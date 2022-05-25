@@ -82,8 +82,10 @@
                                     <label>Gender</label>
                                     <select class="form-control" name="gender" id="">
                                         <option value="">Select Option</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male
+                                        </option>
+                                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female
+                                        </option>
                                     </select>
                                     @error('gender')
                                         <span class="text-danger">{{ $message }}</span>
@@ -134,7 +136,9 @@
                                     <select class="form-control" name="year" id="">
                                         <option value="">Select Option</option>
                                         @foreach ($years as $year)
-                                            <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                            <option value="{{ $year->id }}"
+                                                {{ old('year') == $year->id ? 'selected' : '' }}>{{ $year->year }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('year')
@@ -148,7 +152,9 @@
                                     <select class="form-control" name="class" id="">
                                         <option value="">Select Option</option>
                                         @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                            <option value="{{ $class->id }}"
+                                                {{ old('class') == $class->id ? 'selected' : '' }}>
+                                                {{ $class->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('class')
@@ -162,7 +168,9 @@
                                     <select class="form-control" name="group" id="">
                                         <option value="">Select Option</option>
                                         @foreach ($groups as $group)
-                                            <option value="{{ $group->id }}">{{ $group->group }}</option>
+                                            <option value="{{ $group->id }}"
+                                                {{ old('group') == $group->id ? 'selected' : '' }}>
+                                                {{ $group->group }}</option>
                                         @endforeach
                                     </select>
                                     @error('group')
